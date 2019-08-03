@@ -1,0 +1,43 @@
+body {background-color: #edefef; padding-top: 72.5px; }
+a { text-decoration: none; color: #24404d; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s; }
+a:focus, a:hover { text-decoration: none; color: #f85759; }
+
+
+.page-caption { padding-top: 170px; padding-bottom: 174px; }
+.page-title { margin: 0px 0px 10px 0px; letter-spacing: -1px; line-height: 1;font-size: 46px; line-height: 1; color: #fff; font-weight: 400; text-align: center; 	
+	text-shadow: 2px 4px 3px rgba(0,0,0,0.3);}
+
+.card-section { position: relative; bottom: 60px; }
+@media only screen and (max-width: 767px) {
+	.card-block { padding: 5px; padding-top: 60px; padding-bottom: 60px; border-radius: 25px; }
+}
+@media only screen and (min-width: 767px) {
+	.card-block { padding: 80px; padding-top: 60px; padding-bottom: 60px; border-radius: 25px; }
+}
+
+.section-title { margin-bottom: 60px; }
+
+.instagram-media { min-width: 270px !important;}
+
+input[type=search] {
+	background: #555 url(/static/images/mob-search-icon.png) no-repeat 9px center;
+	border: solid 1px #ccc;
+	padding: 9px 10px 9px 32px;
+}
+
+.alert {margin-bottom: 0px}
+
+
+
+.readme img {
+	/* comma means both */
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 100% !important;
+}
+
+.readme h1 {
+	/* no comma applies only to h1 */
+	text-align: center;
+}

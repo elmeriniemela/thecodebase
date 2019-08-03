@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% load staticfiles %}
+  	<meta charset="utf-8">
+	<title>The Codebase</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="{% static 'main/css/bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+	<link rel="shortcut icon" href="{% static 'main/favicon.ico' %}">
+
+	<link href="{% static 'main/css/main.css' %}" rel="stylesheet">
+
+	<script
+		src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous">
+	</script>
+	
+	<script type="text/javascript" src="{% static 'main/js/bootstrap/bootstrap.min.js' %}"></script>
+
+	{% block head %}{% endblock %}
+
+</head>
+
+<header>
+		{% include 'main/header.html' %}
+</header>
+
+
+<body>
+
+	<script>
+		$("#fading-alert").fadeTo(3000, 500).slideUp(500, function(){
+			$("#fading-alert").slideUp(500);
+		});
+	</script>
+
+     <!-- page-header -->
+     
+	 <div class="page-header" style=" background: url({% static 'main/images/cave_header.jpg' %})no-repeat; position: relative; background-size: cover; background-position: 50%;">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="page-caption text-center">
+						<h1 class="page-title">{{ page_title }}</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	<div class="container mt-4" style="margin-bottom: 200px;">
+		<div class="card-section">
+			{% block body %}{% endblock %}
+			<div class="row m-4">
+				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+					Created by <a href="https://www.thecodebase.site/" >The Codebase</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+</body>
+
+
+
+
+</html>
