@@ -1,0 +1,41 @@
+
+{% extends "main/base.html" %}
+{% load staticfiles %}
+{% load i18n static %}
+
+{% block head %}
+
+<link href="{% static 'main/css/login.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block body %}
+        
+<div class="card-block bg-white">
+    {% if form.errors and not form.non_field_errors %}
+    <p class="errornote">
+    {% if form.errors.items|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
+    </p>
+    {% endif %}
+
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    <p class="errornote">
+        {{ error }}
+    </p>
+    {% endfor %}
+    {% endif %}
+
+    <div class="container text-center">
+        <form class="form-signin" role="form" autocomplete="off" method="post">
+            {% csrf_token %}
+            <img class="mb-4 img-fluid" src="{% static 'main/images/mainlogo.png' %}" alt="" style="max-height: 72px;">
+            <h1 class="h3 mb-4 font-weight-normal">Register</h1>
+            {{ form }}
+            <button type="submit" class="btn btn-lg btn-secondary btn-block">Register</button>
+        </form>
+        <p>Already registered? <a href="{% url 'login' %}">Sign in</a></p>
+    </div>
+</div>
+<!-- <script type="text/javascript" src="{% static 'main/js/validator.js' %}"></script> -->
+{% endblock %}

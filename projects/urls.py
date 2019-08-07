@@ -17,5 +17,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.home, name='games/home'),
+    path('<slug:topic_name>/', views.topics, name='projects/topics')
 ]

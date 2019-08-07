@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'games',
+    'projects',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'projects.context_processors.topics',
             ],
         },
     },
@@ -125,3 +128,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'main', "static"),
 ]
+
+LOGIN_REDIRECT_URL = 'main/home'
+LOGOUT_REDIRECT_URL = 'main/home'
