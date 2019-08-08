@@ -35,8 +35,11 @@ SECRET_KEY = 'x7g*q3d663ishi!a47@zp$wb_ee-2lv8q9%!^292(r@4bg3^!d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = not bool(CONFIG_DICT)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'django.thecodebase.site',
+]
 
 
 # Application definition
