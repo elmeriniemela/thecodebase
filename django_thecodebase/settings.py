@@ -31,11 +31,10 @@ else:
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'x7g*q3d663ishi!a47@zp$wb_ee-2lv8q9%!^292(r@4bg3^!d'
+SECRET_KEY = CONFIG_DICT.get('SECRET_KEY') or 'secret_key'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = not bool(CONFIG_DICT)
+DEBUG = not bool(CONFIG_DICT)
 
 ALLOWED_HOSTS = [
     'django.thecodebase.site',
@@ -142,6 +141,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'STATIC')
 
 STATIC_URL = '/static/'
 
