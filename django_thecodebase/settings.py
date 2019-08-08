@@ -12,9 +12,20 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+def load_config(path):
+    import json
+    with open(path) as f_obj:
+        return json.load(f_obj)
+
+    
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+    
+CONFIG_FILE = os.path.join(BASE_DIR, 'config.json')
+if os.path.isfile(CONFIG_FILE):
+    CONFIG_DICT = load_config(CONFIG_FILE)
+else:
+    CONFIG_DICT = {}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -79,11 +90,17 @@ WSGI_APPLICATION = 'django_thecodebase.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+
+DEFAULT_DB_CONF = {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'thecodebase',
+}
+
+if CONFIG_DICT.get('psql'):
+    DEFAULT_DB_CONF.update(CONFIG_DICT.get('psql'))
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'thecodebase',
-    }
+    'default': DEFAULT_DB_CONF
 }
 
 
