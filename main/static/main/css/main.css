@@ -32,7 +32,9 @@ input[type=search] {
 
 .alert {margin-bottom: 0px}
 
-
+.topic-card {
+	min-height:28rem;
+}
 
 .readme img {
 	/* comma means both */
