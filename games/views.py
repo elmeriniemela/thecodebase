@@ -19,7 +19,7 @@ def games(request, game_name):
     files = game.javascriptfile_set.all()
     context = {
         'phaser_game': game,
-        'phaser_game_files': files,
+        'phaser_game_files': files[1:],
         'conf_file': files[0],
     }
     return render(request, 'games/phaser-game.html', context)
