@@ -16,7 +16,7 @@ a:focus, a:hover { text-decoration: none; color: #f85759; }
 }
 
 .card-btn {
-	max-width: 6rem;
+	max-width: 4rem;
 	margin-top: auto !important;
 }
 
