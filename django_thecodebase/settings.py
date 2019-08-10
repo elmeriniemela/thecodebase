@@ -36,10 +36,12 @@ SECRET_KEY = CONFIG_DICT.get('SECRET_KEY') or 'secret_key'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = not bool(CONFIG_DICT)
 
-ALLOWED_HOSTS = [
-    'django.thecodebase.site',
-]
-
+if DEBUG:
+    ALLOWED_HOSTS = [
+        '127.0.0.1',
+    ]
+else:
+    ALLOWED_HOSTS = CONFIG_DICT['ALLOWED_HOSTS']
 
 # Application definition
 
@@ -98,8 +100,8 @@ DEFAULT_DB_CONF = {
     'NAME': 'thecodebase',
 }
 
-if CONFIG_DICT.get('psql'):
-    DEFAULT_DB_CONF.update(CONFIG_DICT.get('psql'))
+if CONFIG_DICT.get('POSTGRESQL'):
+    DEFAULT_DB_CONF.update(CONFIG_DICT.get('POSTGRESQL'))
 
 DATABASES = {
     'default': DEFAULT_DB_CONF
@@ -145,7 +147,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'STATIC')
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = []
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'main', "static"),
+    os.path.join(BASE_DIR, 'projects', "static"),
+    os.path.join(BASE_DIR, 'games', "static"),
+]
 
 LOGIN_REDIRECT_URL = 'main/home'
 LOGOUT_REDIRECT_URL = 'main/home'

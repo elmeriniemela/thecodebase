@@ -5,14 +5,14 @@
 <div class="row">
     {% for topic in topics %}
     <div class="col-lg-4 col-md-6 mb-4">
-        <div class="card" style="min-height:26rem" onclick="location.href = '{% url 'projects/topics' topic_name=topic.url %}';">
+        <div class="card" style="min-height:28rem" onclick="location.href = '{% url 'projects/topics' topic_name=topic.url %}';">
             <img class="img-fluid align-self-center m-4"
                 src="{% static topic.image_url %}" alt="Invalid image_url"
                 style="max-width: 14rem; max-height: 8rem; overflow:hidden">
-            <div class="card-body">
+            <div class="card-body d-flex flex-column">
                 <h5 class="card-title">{{ topic.title }}</h5>
                 <p class="card-text">{{ topic.description }}</p>
-                <a href="{% url 'projects/topics' topic_name=topic.url %}" class="btn btn-secondary">View</a>
+                <a href="{% url 'projects/topics' topic_name=topic.url %}" class="btn btn-secondary card-btn">View</a>
             </div>
         </div>
 

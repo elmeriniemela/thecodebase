@@ -7,8 +7,9 @@ import re
 
 from django.contrib import admin
 from django.urls import path
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 
 # Register your models here.
 from .models import Topic, Repo
@@ -65,6 +66,8 @@ class RepoAdmin(admin.ModelAdmin):
                 username = form.cleaned_data.get("username")
                 password = form.cleaned_data.get("password")
                 self.save_repos(username, password)
+            
+            return redirect('main/home')
 
         # if a GET (or any other method) we'll create a blank form
         else:
@@ -83,6 +86,8 @@ class RepoAdmin(admin.ModelAdmin):
                     "rewrite some of the games I've made with pygame.",
         'javascript': "I aspire to master JavaScript, since I've already encountered "
                       "it in my work as an Odoo developer, but also in personal projects.",
+        'ansible': "Automating processes and making life easier has always been my passion. "
+                   "Ansible is a great open source tool for deployment automation, which is why i've learned to use it extensively.",
     }
 
     def save_repos(self, username, password):
@@ -99,7 +104,7 @@ class RepoAdmin(admin.ModelAdmin):
                     'display_name': prettify(repo.name),
                     'readme_html': markdown.markdown(
                         requests.get(readme.download_url).text),
-                    'update_date': datetime.now(),
+                    'update_date': timezone.now(),
                 }
                 repo_record = update_or_create(Repo, vals, name=repo.name)
 

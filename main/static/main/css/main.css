@@ -15,6 +15,11 @@ a:focus, a:hover { text-decoration: none; color: #f85759; }
 	.card-block { padding: 80px; padding-top: 60px; padding-bottom: 60px; border-radius: 25px; }
 }
 
+.card-btn {
+	max-width: 6rem;
+	margin-top: auto !important;
+}
+
 .section-title { margin-bottom: 60px; }
 
 .instagram-media { min-width: 270px !important;}
