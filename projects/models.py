@@ -11,7 +11,7 @@ class Repo(models.Model):
     display_name = models.CharField(max_length=150)
     readme_html = models.TextField()
     sequence = models.IntegerField(default=100)
-    update_date = models.DateTimeField(auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True)
     no_update = models.BooleanField(default=False)
 
    
@@ -35,5 +35,5 @@ class Topic(models.Model):
     class Meta:
         ordering = ('sequence', 'title',)
         constraints = [
-            models.UniqueConstraint(fields=['url'], name="url-unique")
+            models.UniqueConstraint(fields=['url'], name="topic-url-unique")
         ]

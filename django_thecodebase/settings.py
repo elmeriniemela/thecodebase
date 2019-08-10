@@ -175,7 +175,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'games', "static"),
 ]
 STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder'
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
 LOGIN_REDIRECT_URL = 'main/home'

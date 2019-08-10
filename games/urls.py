@@ -18,4 +18,5 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='games/home'),
+    path('<slug:game_name>/', views.games, name='games/games')
 ]

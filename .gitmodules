@@ -1,0 +1,8 @@
+[submodule "games/static/games/phaser-games/platform-game"]
+	path = games/static/games/phaser-games/platform-game
+	url = https://github.com/thecodebasesite/platform-game.git
+	branch = master
+[submodule "games/static/games/phaser-games/eat-game"]
+	path = games/static/games/phaser-games/eat-game
+	url = https://github.com/thecodebasesite/eat-game.git
+	branch = master

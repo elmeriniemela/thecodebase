@@ -1,20 +1,19 @@
 
+import re
+
 import requests
 from github import Github
 import markdown
-from datetime import datetime
-import re
 
 from django.contrib import admin
 from django.urls import path
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
-from django.utils import timezone
+from django import forms
 
 # Register your models here.
 from .models import Topic, Repo
 
-from django import forms
 
 
 def prettify(repo_name):
@@ -104,7 +103,6 @@ class RepoAdmin(admin.ModelAdmin):
                     'display_name': prettify(repo.name),
                     'readme_html': markdown.markdown(
                         requests.get(readme.download_url).text),
-                    'update_date': timezone.now(),
                 }
                 repo_record = update_or_create(Repo, vals, name=repo.name)
 

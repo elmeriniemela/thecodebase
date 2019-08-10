@@ -1,0 +1,35 @@
+{% extends "main/base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+
+    <script type="text/javascript" src="{% static 'games/js/phaser/phaser.min.js' %}"></script>
+    <style>
+        #canvas-container {
+            width: 100%;
+            text-align:center;
+        }
+        
+        canvas {
+            display: inline;
+        }
+    </style>  
+    {% for game_file in phaser_game_files %}
+        <script type="text/javascript" src="{% static game_file.path %}"></script>
+    {% endfor %}
+
+{% endblock %}
+
+{% block body %}
+<div class="card-block bg-white">
+
+    <div id="canvas-container">
+        <canvas id="gameCanvas">Canvas not supported in your browser</canvas>
+
+        <script type="text/javascript" src="{% static conf_file.path %}"></script>
+            
+    </div>
+</div>
+    
+
+{% endblock %}
