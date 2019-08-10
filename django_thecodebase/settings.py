@@ -36,12 +36,29 @@ SECRET_KEY = CONFIG_DICT.get('SECRET_KEY') or 'secret_key'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = not bool(CONFIG_DICT)
 
-if DEBUG:
+if not DEBUG:
+    # Production settings only
+    ALLOWED_HOSTS = CONFIG_DICT['ALLOWED_HOSTS']
+    # https://docs.djangoproject.com/en/2.2/ref/middleware/#http-strict-transport-security
+    SECURE_HSTS_SECONDS = 600
+    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_CONTENT_TYPE_NOSNIFF
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_BROWSER_XSS_FILTER
+    SECURE_BROWSER_XSS_FILTER = True
+    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_SSL_REDIRECT
+    SECURE_SSL_REDIRECT = True
+    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SESSION_COOKIE_SECURE
+    SESSION_COOKIE_SECURE = True
+    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-CSRF_COOKIE_SECURE
+    CSRF_COOKIE_SECURE = True
+    # https://docs.djangoproject.com/en/2.2/ref/clickjacking/
+    X_FRAME_OPTIONS = 'DENY'
+
+else:
+    # Development settings
     ALLOWED_HOSTS = [
         '127.0.0.1',
     ]
-else:
-    ALLOWED_HOSTS = CONFIG_DICT['ALLOWED_HOSTS']
 
 # Application definition
 
