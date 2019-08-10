@@ -53,6 +53,11 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     # https://docs.djangoproject.com/en/2.2/ref/clickjacking/
     X_FRAME_OPTIONS = 'DENY'
+    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_HSTS_PRELOAD
+    SECURE_HSTS_PRELOAD = True
+    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_HSTS_INCLUDE_SUBDOMAINS
+    # WARNING: Setting this incorrectly can irreversibly (for the value of SECURE_HSTS_SECONDS) break your site.
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 else:
     # Development settings
