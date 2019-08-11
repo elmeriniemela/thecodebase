@@ -24,10 +24,9 @@
 <div class="card-block bg-white">
 
     <div id="canvas-container">
+        {% csrf_token %}
         <canvas id="gameCanvas">Canvas not supported in your browser</canvas>
-
-        <script type="text/javascript" src="{% static conf_file.path %}"></script>
-            
+        <script type="text/javascript" src="{% static conf_file.path %}"></script> 
     </div>
 </div>
     

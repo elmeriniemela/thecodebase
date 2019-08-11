@@ -21,10 +21,16 @@ def home(request):
     return render(request, 'main/home.html')
 
 def about_me(request):
-    return render(request, 'main/about_me.html')
+    context = {
+        'background_image': 'main/images/glider_header.jpg',
+    }
+    return render(request, 'main/about_me.html', context)
 
 def my_server(request):
-    return render(request, 'main/my_server.html')
+    context = {
+        'background_image': 'main/images/programming_header.jpg',
+    }
+    return render(request, 'main/my_server.html', context)
 
 def download_cv(request):
     path = os.path.join(settings.BASE_DIR, 'main', 'media', 'cv_elmeri.pdf')

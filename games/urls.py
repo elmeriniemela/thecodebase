@@ -18,5 +18,6 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='games/home'),
-    path('<slug:game_name>/', views.games, name='games/games')
+    path('<slug:game_name>/', views.play_game, name='games/play-game'),
+    path('<slug:game_name>/post-score', views.post_score, name='games/post-score'),
 ]

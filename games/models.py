@@ -36,4 +36,4 @@ class Score(models.Model):
     score = models.IntegerField()
 
     class Meta:
-        ordering = ('score', 'time',)
+        ordering = ('-score', '-time',)

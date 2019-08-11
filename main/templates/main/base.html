@@ -16,6 +16,15 @@
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 		crossorigin="anonymous">
 	</script>
+
+	<style>
+		.background-image {
+			background: url({% static background_image %}) no-repeat; 
+			position: relative; 
+			background-size: cover; 
+			background-position: 50%;
+		}
+	</style>
 	
 	<script type="text/javascript" src="{% static 'main/js/bootstrap/bootstrap.min.js' %}"></script>
 
@@ -38,7 +47,7 @@
 
      <!-- page-header -->
      
-	 <div class="page-header" style=" background: url({% static 'main/images/cave_header.jpg' %})no-repeat; position: relative; background-size: cover; background-position: 50%;">
+	 <div class="page-header background-image">
 		<div class="container">
 			<div class="row">
 				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -56,7 +65,7 @@
 			{% block body %}{% endblock %}
 			<div class="row m-4">
 				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
-					Created by <a href="https://www.thecodebase.site/" >The Codebase</a>
+					Created by <a href="https://www.linkedin.com/in/elmeri-niemela/" >Elmeri Niemelä</a>
 				</div>
 			</div>
 		</div>
