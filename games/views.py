@@ -16,6 +16,7 @@ def home(request):
     context = {
         'games': Game.objects.all(),
         'background_image': 'games/images/gaming_header.jpg',
+        'page_title': 'Games',
     }
     return render(request, 'games/home.html', context)
 
@@ -32,6 +33,8 @@ def play_game(request, game_name):
         'phaser_game_files': files[1:],
         'conf_file': files[0],
         'background_image': 'games/images/gaming_header.jpg',
+        'page_title': game.title,
+
     }
     return render(request, 'games/phaser-game.html', context)
 

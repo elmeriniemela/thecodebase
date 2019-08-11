@@ -15,5 +15,6 @@ def topics(request, topic_name):
         'repos': repos,
         'first': repos[0],
         'background_image': 'main/images/programming_header.jpg',
+        'page_title': 'Projects',
     }
     return render(request, 'projects/topics.html', context)

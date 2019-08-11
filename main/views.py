@@ -23,12 +23,15 @@ def home(request):
 def about_me(request):
     context = {
         'background_image': 'main/images/glider_header.jpg',
+        'page_title': 'About Me'
+
     }
     return render(request, 'main/about_me.html', context)
 
 def my_server(request):
     context = {
         'background_image': 'main/images/programming_header.jpg',
+        'page_title': 'My Server',
     }
     return render(request, 'main/my_server.html', context)
 

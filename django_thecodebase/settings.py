@@ -63,6 +63,11 @@ if not DEBUG:
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
+        'formatters': {
+            'verbose': {
+                'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s',
+            },
+        },
         'handlers': {
             'file': {
                 'level': 'DEBUG',
@@ -75,6 +80,7 @@ if not DEBUG:
                 'handlers': ['file'],
                 'level': 'DEBUG',
                 'propagate': True,
+                'formatter': 'verbose',
             },
         },
     }
@@ -85,6 +91,24 @@ else:
     ALLOWED_HOSTS = [
         '127.0.0.1',
     ]
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'console': {
+                'level': 'DEBUG',
+                'class': 'logging.StreamHandler',
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['console'],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
+        },
+    }
+
 
 # Application definition
 
