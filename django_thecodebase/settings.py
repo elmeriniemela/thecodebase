@@ -59,6 +59,27 @@ if not DEBUG:
     # WARNING: Setting this incorrectly can irreversibly (for the value of SECURE_HSTS_SECONDS) break your site.
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
+
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'file': {
+                'level': 'DEBUG',
+                'class': 'logging.FileHandler',
+                'filename': CONFIG_DICT['LOG_FILE'],
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['file'],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
+        },
+    }
+
+
 else:
     # Development settings
     ALLOWED_HOSTS = [
