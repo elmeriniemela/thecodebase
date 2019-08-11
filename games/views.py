@@ -51,7 +51,7 @@ def post_score(request, game_name):
     )
     all_scores = game.score_set.all()
     data_list = []
-    for score_obj in all_scores:
+    for score_obj in all_scores[:10]:
         data_list.append([
             score_obj.user.username.replace('ä', 'a').replace('ö', 'o'),
             score_obj.score,
