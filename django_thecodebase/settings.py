@@ -60,7 +60,7 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
     # https://docs.djangoproject.com/en/3.0/ref/middleware/#referrer-policy
-    SECURE_REFERRER_POLICY = 'no-referrer'
+    SECURE_REFERRER_POLICY = 'same-origin'
 
 
     LOGGING = {
