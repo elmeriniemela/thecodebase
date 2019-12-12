@@ -59,6 +59,9 @@ if not DEBUG:
     # WARNING: Setting this incorrectly can irreversibly (for the value of SECURE_HSTS_SECONDS) break your site.
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
+    # https://docs.djangoproject.com/en/3.0/ref/middleware/#referrer-policy
+    SECURE_REFERRER_POLICY = 'no-referrer'
+
 
     LOGGING = {
         'version': 1,
