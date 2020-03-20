@@ -47,7 +47,7 @@ class GithubForm(forms.Form):
 
 class RepoAdmin(admin.ModelAdmin):
 
-    change_list_template = "projects/admin/change_list.html"
+    change_list_template = "projects/change_list.html"
 
     list_display = ('id', 'name', 'sequence', 'update_date')
 
@@ -65,13 +65,13 @@ class RepoAdmin(admin.ModelAdmin):
                 username = form.cleaned_data.get("username")
                 password = form.cleaned_data.get("password")
                 self.save_repos(username, password)
-            
+
             return redirect('main/home')
 
         # if a GET (or any other method) we'll create a blank form
         else:
             form = GithubForm()
-        return render(request, 'projects/admin/github_credentials.html', {'form': form})
+        return render(request, 'projects/github_credentials.html', {'form': form})
 
     topic_descriptions = {
         'python': "Python is my strongest language. "

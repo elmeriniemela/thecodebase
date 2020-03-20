@@ -1,0 +1,35 @@
+
+.module h2, .module caption, .inline-group h2 {
+    background: #343a40;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: #343a40;
+}
+
+#user-tools a:focus, #user-tools a:hover {
+    border-bottom-color: #343a40;
+    color: #343a40;
+}
+
+
+div.breadcrumbs {
+    background: #343a40;
+}
+
+
+#header {
+    background: #343a40;
+}
+
+.button.default, input[type=submit].default, .submit-row input.default {
+    background: #343a40;
+}
+
+.object-tools a:focus, .object-tools a:hover {
+    background-color: #343a40;
+}
+
+a:link, a:visited {
+	color: #343a40;
+}

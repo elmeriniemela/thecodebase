@@ -17,10 +17,10 @@ def load_config(path):
     with open(path) as f_obj:
         return json.load(f_obj)
 
-    
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    
+
 CONFIG_FILE = os.path.join(BASE_DIR, 'config.json')
 if os.path.isfile(CONFIG_FILE):
     CONFIG_DICT = load_config(CONFIG_FILE)
@@ -116,14 +116,16 @@ else:
 # Application definition
 
 INSTALLED_APPS = [
+    'games',
+    # Projects needs to be before 'django.contrib.admin'
+    # to overwrite jinja templates
+    'projects',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'games',
-    'projects',
 ]
 
 MIDDLEWARE = [
