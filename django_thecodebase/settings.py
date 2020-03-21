@@ -93,6 +93,7 @@ else:
     # Development settings
     ALLOWED_HOSTS = [
         '127.0.0.1',
+        'localhost',
     ]
     LOGGING = {
         'version': 1,
