@@ -22,4 +22,8 @@ urlpatterns = [
     path('about_me/', views.about_me, name='main/about_me'),
     path('my_server/', views.my_server, name='main/my_server'),
     path('download_cv/', views.download_cv, name='main/download_cv'),
+    path('projects/<slug:topic_name>/', views.topics, name='projects/topics'),
+    path('games/', views.games_home, name='games/home'),
+    path('games/<slug:game_name>/', views.play_game, name='games/play-game'),
+    path('games/<slug:game_name>/post-score', views.post_score, name='games/post-score'),
 ]

@@ -116,10 +116,7 @@ else:
 # Application definition
 
 INSTALLED_APPS = [
-    'games',
-    # Projects needs to be before 'django.contrib.admin'
-    # to overwrite jinja templates
-    'projects',
+    'main',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -144,7 +141,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'games', 'templates'),
             os.path.join(BASE_DIR, 'main', 'templates'),
         ],
         'APP_DIRS': True,
@@ -155,7 +151,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'main.context_processors.default_context',
-                'projects.context_processors.topics',
+                'main.context_processors.topics',
             ],
         },
     },
@@ -222,8 +218,6 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'main', "static"),
-    os.path.join(BASE_DIR, 'projects', "static"),
-    os.path.join(BASE_DIR, 'games', "static"),
 ]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',

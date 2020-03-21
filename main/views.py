@@ -1,10 +1,68 @@
 
+import os
+
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import FileResponse
+from django.http import HttpResponseNotFound, JsonResponse
 from django.conf import settings
-import os
+
+from .models import Topic
+from .models import Game
+
+# Create your views here.
+
+
+def games_home(request):
+    context = {
+        'games': Game.objects.all(),
+        'background_image': 'main/images/gaming_header.jpg',
+        'page_title': 'Games',
+    }
+    return render(request, 'main/games.html', context)
+
+
+@login_required
+def play_game(request, game_name):
+    try:
+        game = Game.objects.get(url=game_name)
+    except Game.DoesNotExist:
+        return HttpResponseNotFound("Game not found")
+    files = game.javascriptfile_set.all()
+    context = {
+        'phaser_game': game,
+        'phaser_game_files': files[1:],
+        'conf_file': files[0],
+        'background_image': 'main/images/gaming_header.jpg',
+        'page_title': game.title,
+
+    }
+    return render(request, 'main/phaser-game.html', context)
+
+
+@login_required
+def post_score(request, game_name):
+    try:
+        game = Game.objects.get(url=game_name)
+    except Game.DoesNotExist:
+        return HttpResponseNotFound("Game not found")
+    game.score_set.create(
+        user=request.user,
+        score=request.POST['score'],
+    )
+    all_scores = game.score_set.all()
+    data_list = []
+    for score_obj in all_scores[:10]:
+        data_list.append([
+            score_obj.user.username.replace('ä', 'a').replace('ö', 'o'),
+            score_obj.score,
+            score_obj.time.strftime('%Y-%m-%d'),
+        ])
+    return JsonResponse(data_list, safe=False)
+
+
 
 
 class myUserCreationForm(UserCreationForm):
@@ -53,3 +111,20 @@ def register(request):
     else:
         form = myUserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
+
+
+
+def topics(request, topic_name):
+    try:
+        topic = Topic.objects.get(url=topic_name)
+    except Topic.DoesNotExist:
+        return HttpResponseNotFound("Topic not found")
+    repos = topic.repos.all()
+    context = {
+        'topic': topic,
+        'repos': repos,
+        'first': repos[0],
+        'background_image': 'main/images/programming_header.jpg',
+        'page_title': 'Projects',
+    }
+    return render(request, 'main/projects.html', context)
