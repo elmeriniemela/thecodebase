@@ -4,7 +4,7 @@ a:focus, a:hover { text-decoration: none; color: #f85759; }
 
 
 .page-caption { padding-top: 170px; padding-bottom: 174px; }
-.page-title { margin: 0px 0px 10px 0px; letter-spacing: -1px; line-height: 1;font-size: 46px; line-height: 1; color: #fff; font-weight: 400; text-align: center; 	
+.page-title { margin: 0px 0px 10px 0px; letter-spacing: -1px; line-height: 1;font-size: 46px; line-height: 1; color: #fff; font-weight: 400; text-align: center;
 	text-shadow: 2px 4px 3px rgba(0,0,0,0.3);}
 
 .card-section { position: relative; bottom: 60px; }
@@ -33,7 +33,13 @@ input[type=search] {
 .alert {margin-bottom: 0px}
 
 .topic-card {
-	min-height:28rem;
+	min-height:32rem;
+}
+
+.topic-card-image {
+    max-width: 14rem;
+    max-height: 8rem;
+    overflow:hidden;
 }
 
 .readme img {

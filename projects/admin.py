@@ -1,6 +1,5 @@
 
 import re
-
 import requests
 from github import Github
 import markdown
@@ -73,22 +72,6 @@ class RepoAdmin(admin.ModelAdmin):
             form = GithubForm()
         return render(request, 'projects/github_credentials.html', {'form': form})
 
-    topic_descriptions = {
-        'python': "Python is my strongest language. "
-                  "It's the main language I've used professionally.",
-        'java': "I learned Java in University of Helsinki. "
-                "I've also used it in my work at SprintIT.",
-        'web-development': "This website is an example of my skills with Flask and Bootstrap. "
-                           "I've also learned alot about deploying servers from my work at SprintIT.",
-        'c-c-plus': "I've studied the basics of C/C++. "
-                    "There's alot I'd like to do with C++ for example "
-                    "rewrite some of the games I've made with pygame.",
-        'javascript': "I aspire to master JavaScript, since I've already encountered "
-                      "it in my work as an Odoo developer, but also in personal projects.",
-        'ansible': "Automating processes and making life easier has always been my passion. "
-                   "Ansible is a great open source tool for deployment automation, which is why i've learned to use it extensively.",
-    }
-
     def save_repos(self, username, password):
         ghub = Github(username, password)
         for repo in ghub.get_user().get_repos():
@@ -109,13 +92,7 @@ class RepoAdmin(admin.ModelAdmin):
                 topics = repo.get_topics()
 
                 for topic_name in topics:
-                    vals = {
-                        'title': topic_name.capitalize(),
-                        'url': topic_name,
-                        'image_url': 'projects/images/{}.png'.format(topic_name),
-                        'description': self.topic_descriptions.get(topic_name, topic_name),
-                    }
-
+                    vals = Topic.default_get(topic_name)
                     topic_record = update_or_create(Topic, vals, url=topic_name)
                     topic_record.repos.add(repo_record)
                     topic_record.save()

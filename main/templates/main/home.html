@@ -6,9 +6,8 @@
     {% for topic in topics %}
     <div class="col-lg-4 col-md-6 mb-4">
         <div class="card topic-card" onclick="location.href = '{% url 'projects/topics' topic_name=topic.url %}';">
-            <img class="img-fluid align-self-center m-4"
-                src="{% static topic.image_url %}" alt="Invalid image_url"
-                style="max-width: 14rem; max-height: 8rem; overflow:hidden">
+            <img class="img-fluid align-self-center m-4 topic-card-image"
+                src="{% static topic.image_url %}" alt="Invalid image_url">
             <div class="card-body d-flex flex-column">
                 <h5 class="card-title">{{ topic.title }}</h5>
                 <p class="card-text">{{ topic.description }}</p>
