@@ -29,6 +29,16 @@ class JavaScriptFile(models.Model):
         ordering = ('sequence',)
 
 
+class GithubToken(models.Model):
+    name = models.CharField(max_length=200)
+    token = models.CharField(max_length=100)
+    sequence = models.IntegerField(default=100)
+
+
+    class Meta:
+        ordering = ('sequence',)
+
+
 class Score(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)

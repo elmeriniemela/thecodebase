@@ -2,5 +2,6 @@
 {% load static %}
 {% block extrastyle %}
     {{ block.super }}
+	<link rel="shortcut icon" href="{% static 'main/favicon.ico' %}">
     <link href="{% static 'main/css/admin.css' %}" rel="stylesheet">
 {% endblock %}

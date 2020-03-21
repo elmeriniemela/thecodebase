@@ -1,101 +1,37 @@
 
 import re
 import requests
-from github import Github
+import github
 import markdown
 
 from django.contrib import admin
-from django.urls import path
-from django.shortcuts import render, redirect
-from django.utils.translation import gettext_lazy as _
-from django import forms
 
 # Register your models here.
-from .models import Topic, Repo
+from .models import Topic, Repo, GithubToken
 from .models import Game, Score, JavaScriptFile
 
 
+def fetch_repos(modeladmin, request, queryset):
 
-def prettify(repo_name):
-    words = re.split(r'[ \-_]', repo_name)
-    words = [word.capitalize() for word in words]
-    return ' '.join(words)
+    def prettify(repo_name):
+        words = re.split(r'[ \-_]', repo_name)
+        words = [word.capitalize() for word in words]
+        return ' '.join(words)
 
-def update_or_create(Model, vals, **search_kwargs):
-    objects = getattr(Model, 'objects')
-    record, created = objects.get_or_create(**search_kwargs, defaults=vals)
-    if not created:
-        for attr, value in vals.items():
-            setattr(record, attr, value)
-        record.save()
-    return record
-
-
-class GithubForm(forms.Form):
-    username = forms.CharField(
-        label=_("Username"),
-        strip=False,
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
-    )
-
-    password = forms.CharField(
-        label=_("Password"),
-        strip=False,
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-    )
+    def update_or_create(Model, vals, **search_kwargs):
+        objects = getattr(Model, 'objects')
+        record, created = objects.get_or_create(**search_kwargs, defaults=vals)
+        if not created:
+            for attr, value in vals.items():
+                setattr(record, attr, value)
+            record.save()
+        return record
 
 
-class GameAdmin(admin.ModelAdmin):
-
-    list_display = ('id', 'title', 'sequence')
-
-class ScoreAdmin(admin.ModelAdmin):
-
-    list_display = ('id', 'user', 'time', 'score')
-
-
-class JavaScriptFileAdmin(admin.ModelAdmin):
-
-    list_display = ('id', 'path', 'game', 'sequence')
-
-
-class TopicAdmin(admin.ModelAdmin):
-
-    list_display = ('id', 'title', 'sequence')
-
-
-class RepoAdmin(admin.ModelAdmin):
-
-    change_list_template = "main/change_list.html"
-
-    list_display = ('id', 'name', 'sequence', 'update_date')
-
-    def get_urls(self):
-        urls = super().get_urls()
-        my_urls = [
-            path('fetch-repos/', self.fetch_repos_from_remote),
-        ]
-        return my_urls + urls
-
-    def fetch_repos_from_remote(self, request):
-        if request.method == 'POST':
-            form = GithubForm(request.POST)
-            if form.is_valid():
-                username = form.cleaned_data.get("username")
-                password = form.cleaned_data.get("password")
-                self.save_repos(username, password)
-
-            return redirect('main/home')
-
-        # if a GET (or any other method) we'll create a blank form
-        else:
-            form = GithubForm()
-        return render(request, 'main/github_credentials.html', {'form': form})
-
-    def save_repos(self, username, password):
-        ghub = Github(username, password)
+    for token_obj in queryset:
+        ghub = github.Github(token_obj.token)
         for repo in ghub.get_user().get_repos():
-            if not repo.private and repo.owner.login == username:
+            if not repo.private:
                 try:
                     readme = repo.get_readme()
                 except:
@@ -118,10 +54,50 @@ class RepoAdmin(admin.ModelAdmin):
                     topic_record.save()
 
 
+fetch_repos.short_description = "Fetch Repositories"
+
+
+
+class GameAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'sequence')
+
+admin.site.register(Game, GameAdmin)
+
+
+
+class ScoreAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'time', 'score')
+
+admin.site.register(Score, ScoreAdmin)
+
+
+class JavaScriptFileAdmin(admin.ModelAdmin):
+    list_display = ('id', 'path', 'game', 'sequence')
+
+
+admin.site.register(JavaScriptFile, JavaScriptFileAdmin)
+
+
+
+class TopicAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'sequence')
 
 
 admin.site.register(Topic, TopicAdmin)
+
+
+class GithubTokenAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'sequence')
+    actions = [fetch_repos]
+
+
+admin.site.register(GithubToken, GithubTokenAdmin)
+
+
+class RepoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'sequence', 'update_date')
+
+
 admin.site.register(Repo, RepoAdmin)
-admin.site.register(JavaScriptFile, JavaScriptFileAdmin)
-admin.site.register(Game, GameAdmin)
-admin.site.register(Score, ScoreAdmin)
+
+
