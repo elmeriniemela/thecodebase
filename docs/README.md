@@ -4,7 +4,7 @@
 [www.thecodebase.tech](http://www.thecodebase.tech "www.thecodebase.tech")
 
 
-![alt text](https://raw.githubusercontent.com/thecodebasesite/thecodebase/master/docs/thecodebase.png)
+![alt text](https://raw.githubusercontent.com/elmeriniemela/thecodebase/master/docs/thecodebase.png)
 
 Install instructions:
 
