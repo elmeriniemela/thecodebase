@@ -1,17 +1,24 @@
 
+import logging
 import re
 import requests
 import github
 import markdown
+import celery
 
 from django.contrib import admin
+from django.http import HttpResponseRedirect
+from django.contrib import messages
 
-# Register your models here.
 from .models import Topic, Repo, GithubToken
 from .models import Game, Score, JavaScriptFile
 
 
-def fetch_repos(modeladmin, request, queryset):
+_logger = logging.getLogger(__name__)
+
+
+@celery.shared_task
+def fetch_repos_task(token):
 
     def prettify(repo_name):
         words = re.split(r'[ \-_]', repo_name)
@@ -27,34 +34,31 @@ def fetch_repos(modeladmin, request, queryset):
             record.save()
         return record
 
+    ghub = github.Github(token)
+    for repo in ghub.get_user().get_repos():
+        if not repo.private:
+            try:
+                readme = repo.get_readme()
+            except:
+                continue
 
-    for token_obj in queryset:
-        ghub = github.Github(token_obj.token)
-        for repo in ghub.get_user().get_repos():
-            if not repo.private:
-                try:
-                    readme = repo.get_readme()
-                except:
-                    continue
+            _logger.info("Saving repo %s", repo.name)
+            vals = {
+                'name': repo.name,
+                'display_name': prettify(repo.name),
+                'readme_html': markdown.markdown(
+                    requests.get(readme.download_url).text),
+            }
+            repo_record = update_or_create(Repo, vals, name=repo.name)
 
-                vals = {
-                    'name': repo.name,
-                    'display_name': prettify(repo.name),
-                    'readme_html': markdown.markdown(
-                        requests.get(readme.download_url).text),
-                }
-                repo_record = update_or_create(Repo, vals, name=repo.name)
+            topics = repo.get_topics()
 
-                topics = repo.get_topics()
+            for topic_name in topics:
+                vals = Topic.default_get(topic_name)
+                topic_record = update_or_create(Topic, vals, url=topic_name)
+                topic_record.repos.add(repo_record)
+                topic_record.save()
 
-                for topic_name in topics:
-                    vals = Topic.default_get(topic_name)
-                    topic_record = update_or_create(Topic, vals, url=topic_name)
-                    topic_record.repos.add(repo_record)
-                    topic_record.save()
-
-
-fetch_repos.short_description = "Fetch Repositories"
 
 
 
@@ -69,6 +73,7 @@ class ScoreAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'time', 'score')
 
 admin.site.register(Score, ScoreAdmin)
+
 
 
 class JavaScriptFileAdmin(admin.ModelAdmin):
@@ -86,9 +91,21 @@ class TopicAdmin(admin.ModelAdmin):
 admin.site.register(Topic, TopicAdmin)
 
 
+
 class GithubTokenAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'sequence')
-    actions = [fetch_repos]
+    actions = ['fetch_repos']
+
+    def fetch_repos(self, request, queryset):
+        for token_obj in queryset:
+            fetch_repos_task.delay(token_obj.token)
+
+        messages.add_message(request, messages.INFO, "%s github tokens will be processed asyncronosly" % len(queryset))
+
+        return HttpResponseRedirect('/')
+
+
+    fetch_repos.short_description = "Fetch Repositories"
 
 
 admin.site.register(GithubToken, GithubTokenAdmin)

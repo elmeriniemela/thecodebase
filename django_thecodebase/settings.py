@@ -27,6 +27,9 @@ if os.path.isfile(CONFIG_FILE):
 else:
     CONFIG_DICT = {}
 
+
+CELERY_BROKER_URL = 'amqp://localhost//'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 

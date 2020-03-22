@@ -9,7 +9,7 @@
 	<link rel="shortcut icon" href="{% static 'main/favicon.ico' %}">
 
 	<link href="{% static 'main/css/main.css' %}" rel="stylesheet">
-	<link href="{% static 'main/css/hoverable.css' %}" rel="stylesheet">
+    <link href="{% static 'main/css/hoverable.css' %}" rel="stylesheet">
 
 	<script
 		src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -19,14 +19,14 @@
 
 	<style>
 		.background-image {
-			background: url({% static background_image %}) no-repeat; 
-			position: relative; 
-			background-size: cover; 
+			background: url({% static background_image %}) no-repeat;
+			position: relative;
+			background-size: cover;
 			background-position: 50%;
 		}
 	</style>
-	
-	<script type="text/javascript" src="{% static 'main/js/bootstrap/bootstrap.min.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'main/js/bootstrap/bootstrap.min.js' %}"></script>
 
 	{% block head %}{% endblock %}
 
@@ -38,6 +38,15 @@
 
 
 <body>
+    <div id="response"> </div>
+    {% if messages %}
+        {% for message in messages %}
+        <div id="fading-alert" class="alert alert-info alert-dismissible text-center" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            {{message}}
+        </div>
+        {% endfor %}
+    {% endif %}
 
 	<script>
 		$("#fading-alert").fadeTo(3000, 500).slideUp(500, function(){
@@ -46,7 +55,7 @@
 	</script>
 
      <!-- page-header -->
-     
+
 	 <div class="page-header background-image">
 		<div class="container">
 			<div class="row">
@@ -58,7 +67,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 
 	<div class="container mt-4" style="margin-bottom: 200px;">
 		<div class="card-section">
@@ -71,7 +80,7 @@
 		</div>
 	</div>
 
-	
+
 </body>
 
 
