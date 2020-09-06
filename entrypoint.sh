@@ -5,4 +5,4 @@ set -e
 
 python manage.py collectstatic --noinput
 
-uwsgi --socket :8000 --master --enable-threads --module django_thecodebase.wsgi:application
+uwsgi --socket :8000 --master --enable-threads --module django_thecodebase.wsgi:application --check-static /app

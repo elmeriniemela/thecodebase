@@ -8,27 +8,26 @@ services:
         - POSTGRES_USER=postgres
         - POSTGRES_PASSWORD=postgres
     app:
-      build: .
-      volumes:
-        - static_data:/vol/web
       ports:
-        - "8000:8000"
+        - "127.0.0.1:8000:8000"
+      build: .
       depends_on:
         - db
       environment:
         - SECRET_KEY=SECRET
         - ALLOWED_HOSTS=127.0.0.1,localhost
 
-    proxy:
-      build:
-        context: ./proxy
-      volumes:
-        - static_data:/vol/static
-      ports:
-        - "8080:8080"
+    rabbitmq:
+      image: rabbitmq
+
+    celery:
+      command: celery --app=django_thecodebase worker --loglevel=info
+      build: .
       depends_on:
         - app
+        - rabbitmq
+      environment:
+        - SECRET_KEY=SECRET
+        - ALLOWED_HOSTS=127.0.0.1,localhost
 
 
-volumes:
-  static_data:

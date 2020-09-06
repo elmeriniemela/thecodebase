@@ -7,7 +7,7 @@ COPY ./app /app
 COPY ./entrypoint.sh /
 WORKDIR /app
 RUN useradd thecodebase
-RUN mkdir -p /vol/web/static /vol/web/media
-RUN chown -R thecodebase:thecodebase /vol
+RUN mkdir -p /app/static
+RUN chown -R thecodebase:thecodebase /app/static
 USER thecodebase
 CMD ["/entrypoint.sh"]

@@ -13,9 +13,21 @@ services:
       volumes:
         - ./app:/app
       ports:
-        - "8000:8000"
+        - "127.0.0.1:8080:8000"
       depends_on:
         - db
+      environment:
+        - DEBUG=1
+
+    rabbitmq:
+      image: rabbitmq
+
+    celery:
+      command: celery --app=django_thecodebase worker --loglevel=info
+      build: .
+      depends_on:
+        - app
+        - rabbitmq
       environment:
         - DEBUG=1
 
