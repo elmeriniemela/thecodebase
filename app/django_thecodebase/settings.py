@@ -21,11 +21,6 @@ def load_config(path):
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-CONFIG_FILE = os.path.join(BASE_DIR, 'config.json')
-if os.path.isfile(CONFIG_FILE):
-    CONFIG_DICT = load_config(CONFIG_FILE)
-else:
-    CONFIG_DICT = {}
 
 
 CELERY_BROKER_URL = 'amqp://localhost//'
@@ -34,62 +29,36 @@ CELERY_BROKER_URL = 'amqp://localhost//'
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = CONFIG_DICT.get('SECRET_KEY') or 'secret_key'
+SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret_key'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = not bool(CONFIG_DICT)
+DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 
 if not DEBUG:
     # Production settings only
-    ALLOWED_HOSTS = CONFIG_DICT['ALLOWED_HOSTS']
-    # https://docs.djangoproject.com/en/2.2/ref/middleware/#http-strict-transport-security
-    SECURE_HSTS_SECONDS = 600
-    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_CONTENT_TYPE_NOSNIFF
-    SECURE_CONTENT_TYPE_NOSNIFF = True
-    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_BROWSER_XSS_FILTER
-    SECURE_BROWSER_XSS_FILTER = True
-    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_SSL_REDIRECT
-    SECURE_SSL_REDIRECT = True
-    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SESSION_COOKIE_SECURE
-    SESSION_COOKIE_SECURE = True
-    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-CSRF_COOKIE_SECURE
-    CSRF_COOKIE_SECURE = True
-    # https://docs.djangoproject.com/en/2.2/ref/clickjacking/
-    X_FRAME_OPTIONS = 'DENY'
-    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_HSTS_PRELOAD
-    SECURE_HSTS_PRELOAD = True
-    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_HSTS_INCLUDE_SUBDOMAINS
-    # WARNING: Setting this incorrectly can irreversibly (for the value of SECURE_HSTS_SECONDS) break your site.
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
+    # # https://docs.djangoproject.com/en/2.2/ref/middleware/#http-strict-transport-security
+    # SECURE_HSTS_SECONDS = 600
+    # # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_CONTENT_TYPE_NOSNIFF
+    # SECURE_CONTENT_TYPE_NOSNIFF = True
+    # # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_BROWSER_XSS_FILTER
+    # SECURE_BROWSER_XSS_FILTER = True
+    # # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_SSL_REDIRECT
+    # SECURE_SSL_REDIRECT = True
+    # # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SESSION_COOKIE_SECURE
+    # SESSION_COOKIE_SECURE = True
+    # # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-CSRF_COOKIE_SECURE
+    # CSRF_COOKIE_SECURE = True
+    # # https://docs.djangoproject.com/en/2.2/ref/clickjacking/
+    # X_FRAME_OPTIONS = 'DENY'
+    # # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_HSTS_PRELOAD
+    # SECURE_HSTS_PRELOAD = True
+    # # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_HSTS_INCLUDE_SUBDOMAINS
+    # # WARNING: Setting this incorrectly can irreversibly (for the value of SECURE_HSTS_SECONDS) break your site.
+    # SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
-    # https://docs.djangoproject.com/en/3.0/ref/middleware/#referrer-policy
-    SECURE_REFERRER_POLICY = 'same-origin'
-
-
-    LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': False,
-        'formatters': {
-            'verbose': {
-                'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s',
-            },
-        },
-        'handlers': {
-            'file': {
-                'level': 'DEBUG',
-                'class': 'logging.FileHandler',
-                'filename': CONFIG_DICT['LOG_FILE'],
-            },
-        },
-        'loggers': {
-            'django': {
-                'handlers': ['file'],
-                'level': 'DEBUG',
-                'propagate': True,
-                'formatter': 'verbose',
-            },
-        },
-    }
+    # # https://docs.djangoproject.com/en/3.0/ref/middleware/#referrer-policy
+    # SECURE_REFERRER_POLICY = 'same-origin'
 
 
 else:
@@ -98,23 +67,24 @@ else:
         '127.0.0.1',
         'localhost',
     ]
-    LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': False,
-        'handlers': {
-            'console': {
-                'level': 'INFO',
-                'class': 'logging.StreamHandler',
-            },
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
         },
-        'loggers': {
-            'django': {
-                'handlers': ['console'],
-                'level': 'INFO',
-                'propagate': True,
-            },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
         },
-    }
+    },
+}
 
 
 # Application definition
@@ -168,16 +138,15 @@ WSGI_APPLICATION = 'django_thecodebase.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 
-DEFAULT_DB_CONF = {
-    'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'thecodebase',
-}
-
-if CONFIG_DICT.get('POSTGRESQL'):
-    DEFAULT_DB_CONF.update(CONFIG_DICT.get('POSTGRESQL'))
-
 DATABASES = {
-    'default': DEFAULT_DB_CONF
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
+    }
 }
 
 
@@ -216,9 +185,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'STATIC')
+STATIC_ROOT = '/vol/web/static'
+MEDIA_ROOT = '/vol/web/media'
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/static/'
+MEDIA_URL = '/static/media/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'main', "static"),
