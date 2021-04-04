@@ -1,20 +1,22 @@
-# The Codebase
+## The Codebase
+
+Funtionality:
+* Integration with github to make a portfolio website based on projects.
+* JavaScript games.
 
 
-[www.thecodebase.tech](http://www.thecodebase.tech "www.thecodebase.tech")
+Install instructions:
+
+* `docker build -t .`
+* `docker-compose up`
+
+Setup database:
+* `pip install -r requirements.txt`
+* `createdb thecodebase`
+* `python manage.py migrate`
+* `python manage.py createsuperuser`
+* `python manage.py runserver`
 
 
 ![alt text](https://raw.githubusercontent.com/elmeriniemela/thecodebase/master/docs/thecodebase.png)
 
-Install instructions:
-
-* `sudo apt install libpq-dev -y`
-* `git clone <this repo>`
-* `cd <this repo>`
-* `mkdir ~/.venv`
-* `virtualenv -p python3.6 ~/.venv/django`
-* `source ~/.venv/bin/activate`
-* `pip install -r requirements.txt`
-* `createdb thecodebase`
-* `python manage.py migrate`
-* `python manage.py runserver`

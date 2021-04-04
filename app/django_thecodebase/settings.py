@@ -29,7 +29,7 @@ DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 
 if not DEBUG:
     # Production settings only
-    ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
+    ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost').split(',')
     # # https://docs.djangoproject.com/en/2.2/ref/middleware/#http-strict-transport-security
     # SECURE_HSTS_SECONDS = 600
     # # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_CONTENT_TYPE_NOSNIFF
@@ -134,7 +134,7 @@ WSGI_APPLICATION = 'django_thecodebase.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': 'thecodebase',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'db',
