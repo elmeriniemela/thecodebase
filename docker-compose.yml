@@ -12,7 +12,6 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     app:
       build: .
-      command: uwsgi --socket :8000 --master -b 32768 --enable-threads --module django_thecodebase.wsgi:application --check-static /app
       volumes:
         - ./app:/app
       ports:

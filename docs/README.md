@@ -5,13 +5,17 @@ Funtionality:
 * JavaScript games.
 
 
-Install instructions:
+Install & Run:
 * `docker-compose up --build`
 
 Setup database:
 * `docker-compose exec app python manage.py migrate`
 * `docker-compose exec app python manage.py createsuperuser`
-* `docker-compose exec app python manage.py collectstatic --noinput`
+
+Notes:
+* All `docker-compose` commands should be ran on the root directory of this repo.
+* For `DEBUG=0` you need nginx, see `example-nginx.con`
+* To access the container run `docker-compose exec app bash`
 
 
 ![alt text](https://raw.githubusercontent.com/elmeriniemela/thecodebase/master/docs/thecodebase.png)
