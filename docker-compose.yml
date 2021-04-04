@@ -12,7 +12,7 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     app:
       build: .
-      command: python manage.py runserver 0.0.0.0:8000
+      command: uwsgi --http :8000 --master --enable-threads --module django_thecodebase.wsgi:application --check-static /app
       volumes:
         - ./app:/app
       ports:

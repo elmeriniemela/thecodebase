@@ -29,7 +29,7 @@ DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 
 if not DEBUG:
     # Production settings only
-    ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost').split(',')
+    ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
     # # https://docs.djangoproject.com/en/2.2/ref/middleware/#http-strict-transport-security
     # SECURE_HSTS_SECONDS = 600
     # # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_CONTENT_TYPE_NOSNIFF
@@ -134,7 +134,7 @@ WSGI_APPLICATION = 'django_thecodebase.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'thecodebase',
+        'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'db',
@@ -178,7 +178,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'STATIC')
 
 STATIC_URL = '/static/'
 

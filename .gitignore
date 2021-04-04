@@ -1,6 +1,4 @@
 *.pyc
 .vscode/*
 *.egg-info
-config.json
 STATIC
-*.env

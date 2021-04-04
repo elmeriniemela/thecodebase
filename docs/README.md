@@ -6,16 +6,12 @@ Funtionality:
 
 
 Install instructions:
-
-* `docker build -t .`
-* `docker-compose up`
+* `docker-compose up --build`
 
 Setup database:
-* `pip install -r requirements.txt`
-* `createdb thecodebase`
-* `python manage.py migrate`
-* `python manage.py createsuperuser`
-* `python manage.py runserver`
+* `docker-compose exec app python manage.py migrate`
+* `docker-compose exec app python manage.py createsuperuser`
+* `docker-compose exec app python manage.py collectstatic --noinput`
 
 
 ![alt text](https://raw.githubusercontent.com/elmeriniemela/thecodebase/master/docs/thecodebase.png)
