@@ -12,7 +12,6 @@ COPY ./thecodebase /thecodebase
 WORKDIR /thecodebase
 RUN mkdir -p /thecodebase/build/static
 RUN chown -R $username:$username /thecodebase/build/static
-VOLUME ["/thecodebase"]
 COPY ./entrypoint.sh /usr/bin/
 USER $username
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
