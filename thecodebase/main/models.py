@@ -85,22 +85,58 @@ class Topic(models.Model):
     @staticmethod
     def default_get(topic_name):
         pre_defined = {
-            'python': {
+            'academic': {
+                'title': 'Academia and fundamentals',
                 'sequence': 10,
+                'description': "Strong theoretical background "
+                    "and understanding of the fundamentals of computing  "
+                    "allows for more indepth analysis and better facillitates learning the technologies built on top of the theory.",
+            },
+            'web-development': {
+                'title': 'Web Development',
+                'sequence': 20,
+                'description': "The modern user inferface is in the browser. "
+                    "The huge advange on building web based applications is that they are instantly cross-platform. "
+                    "Developing and desinging the architecture of web-based systems is a big part of my job at SprintIT",
+            },
+            'cloud-architecture': {
+                'title': 'Cloud Architecture',
+                'image_url': 'main/images/ansible.png',
+                'sequence': 30,
+                'description': "Automating processes and making life easier have always been my passion. "
+                    "Since both Ansible and Odoo ERP are open source and based on Python, "
+                    "I integrated them at SprintIT and created an interface to handle automated customer deployments.",
+            },
+
+            'machine-learning': {
+                'image_url': 'main/images/machine-learning.jpg',
+                'title': 'Machine Learning',
+                'sequence': 40,
+                'description': "It is amazing what the chain rule and simple linear algebra can achieve with modern computing power. "
+                    "Machine learning is one of my passions and I strongly beleive it will change the way we solve problems."
+            },
+
+            'game-development': {
+                'title': 'Game-Development',
+                'sequence': 50,
+                'description':
+                    "Developing games is what got me into programming and finally computer science more generally. "
+            },
+            'python': {
+                'sequence': 60,
                 'description': "Python is currently my go-to language. "
                     "It's the main language I've used professionally and in my personal projects. "
                     "Keywords with Python include Odoo-ORM, Django-framework, Flask, API Integrations and Data Analysis.",
             },
-
             'java': {
-                'sequence': 20,
+                'sequence': 70,
                 'description': "During my studies at University of Helsinki, Java was the teaching language. "
                     "Using Java I learned the basic and advanced concepts of data structures and algorithms. "
                     "I believe strongly that the theoretical understanding provides important tools when analysing practical problems.",
             },
 
             'ansible': {
-                'sequence': 30,
+                'sequence': 80,
                 'description': "Automating processes and making life easier have always been my passion. "
                     "Since both Ansible and Odoo ERP are open source and based on Python, "
                     "I integrated them at SprintIT and created an interface to handle automated customer deployments.",
@@ -108,7 +144,7 @@ class Topic(models.Model):
 
             'c-c-plus': {
                 'title': 'C/C++',
-                'sequence': 40,
+                'sequence': 90,
                 'description': "I've studied the basics of C/C++. "
                     "There's alot I'd like to do with C++: for example rewrite some of the games I've made with pygame. "
                     "What facinates me about C in particular is its closeness to what the actual hardware supports.",
@@ -116,20 +152,21 @@ class Topic(models.Model):
 
             'javascript': {
                 'title': 'JavaScript',
-                'sequence': 50,
+                'sequence': 100,
                 'description': "I aspire to master JavaScript, since it's a popular multipurpose languge and most importantly the language of the web. "
                     "JavaScript is a must for me since increasing number of services are browser based including Odoo ERP which I'm currently working on at SprintIT.",
             },
-
-            'web-development': {
-                'title': 'Web Devopment',
-                'sequence': 60,
-                'description': "This website is one of the examples of my skills with web-based technologies. "
-                    "Currently I'm interested to learn new web technologies such as Angular or React for frontend and Node.js and MongoDB for backend. "
-                    "Automating and deploying Cloud-based systems is a big part of my job at SprintIT",
-
-            },
         }
+
+
+        aliases = {
+            'ansible': 'cloud-architecture',
+            'cloud-architechture': 'cloud-architecture',
+            'artificial-intelligence': 'machine-learning',
+        }
+
+        if topic_name in aliases:
+            topic_name = aliases[topic_name]
 
         vals = {
             'title': topic_name.capitalize(),

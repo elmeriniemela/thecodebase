@@ -55,7 +55,7 @@ def fetch_repos_task(token):
 
             for topic_name in topics:
                 vals = Topic.default_get(topic_name)
-                topic_record = update_or_create(Topic, vals, url=topic_name)
+                topic_record = update_or_create(Topic, vals, url=vals['url'])
                 topic_record.repos.add(repo_record)
                 topic_record.save()
 
