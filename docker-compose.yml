@@ -20,6 +20,9 @@ services:
         - db
       env_file:
         - app.env
+      # pdb debug
+      # stdin_open: true
+      # tty: true
 
     rabbitmq:
       image: rabbitmq

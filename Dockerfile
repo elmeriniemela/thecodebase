@@ -4,11 +4,14 @@ FROM python:3
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
-COPY requirements.txt /requirements.txt
-RUN pip install -r /requirements.txt
+ARG username=thecodebase
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install -r /tmp/requirements.txt
+RUN useradd $username
 COPY ./app /app
 WORKDIR /app
-RUN useradd thecodebase
-USER thecodebase
+RUN mkdir -p /app/STATIC
+RUN chown -R $username:$username /app/STATIC
 COPY ./entrypoint.sh /usr/bin/
+USER $username
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]

@@ -14,9 +14,14 @@ Setup database:
 
 Notes:
 * All `docker-compose` commands should be ran on the root directory of this repo.
-* For `DEBUG=0` you need nginx, see `example-nginx.con`
+* For `DEBUG=0` you need nginx, see `example-nginx.conf`
 * To access the container run `docker-compose exec app bash`
 
+Python PDB:
+* Enable `stdin_open: true` and `tty: true` on docker-compose.yml
+* Add breakpoint `import pdb; pdb.set_trace()`
+* Attach to container `docker attach thecodebase-docker_app_1`
+* Detach with `Ctrl + P, Ctrl + Q`
 
 ![alt text](https://raw.githubusercontent.com/elmeriniemela/thecodebase/master/docs/thecodebase.png)
 
