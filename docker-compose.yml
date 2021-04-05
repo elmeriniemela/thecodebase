@@ -12,9 +12,8 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     thecodebase:
       build: .
-      # Local debug
-      # volumes:
-      #   - ./thecodebase:/thecodebase
+      volumes:
+        - ./thecodebase:/thecodebase
       ports:
         - 127.0.0.1:8000:8000
       depends_on:
