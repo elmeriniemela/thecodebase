@@ -25,11 +25,11 @@ services:
       image: rabbitmq
 
     celery:
-      command: celery --app=django_thecodebase worker --loglevel=info
       build: .
       depends_on:
-        - app
         - rabbitmq
+      environment:
+        - CELERY=1
       env_file:
         - app.env
 
