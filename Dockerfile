@@ -8,10 +8,10 @@ ARG username=thecodebase
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install -r /tmp/requirements.txt
 RUN useradd $username
-COPY ./app /app
-WORKDIR /app
-RUN mkdir -p /app/STATIC
-RUN chown -R $username:$username /app/STATIC
+COPY ./thecodebase /thecodebase
+WORKDIR /thecodebase
+RUN mkdir -p /thecodebase/STATIC
+RUN chown -R $username:$username /thecodebase/STATIC
 COPY ./entrypoint.sh /usr/bin/
 USER $username
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]

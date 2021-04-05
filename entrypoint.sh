@@ -13,5 +13,5 @@ elif [ "$DEBUG" = "1" ]; then
 else
     python manage.py collectstatic --noinput
     echo "Start the uWSGI server.."
-    exec uwsgi --socket :8000 --master -b 32768 --enable-threads --module django_thecodebase.wsgi:application --check-static /app
+    exec uwsgi --socket :8000 --master -b 32768 --enable-threads --module django_thecodebase.wsgi:application
 fi

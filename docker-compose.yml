@@ -10,16 +10,16 @@ services:
         - POSTGRES_HOST_AUTH_METHOD=trust
       volumes:
       - postgres_data:/var/lib/postgresql/data/
-    app:
+    thecodebase:
       build: .
       volumes:
-        - ./app:/app
+        - ./thecodebase:/thecodebase
       ports:
         - 8000:8000
       depends_on:
         - db
       env_file:
-        - app.env
+        - thecodebase.env
       # pdb debug
       # stdin_open: true
       # tty: true
@@ -34,7 +34,7 @@ services:
       environment:
         - CELERY=1
       env_file:
-        - app.env
+        - thecodebase.env
 
 
 volumes:
