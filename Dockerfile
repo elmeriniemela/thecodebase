@@ -4,6 +4,8 @@ FROM python:3
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
+# The static files are generated and shared to be served with nginx, thus the
+# docker user must be specified as an argument
 ARG USER_ID
 ARG GROUP_ID
 ARG USERNAME

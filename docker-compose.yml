@@ -29,7 +29,10 @@ services:
 
     celery:
       build: .
+      volumes:
+        - ./thecodebase:/thecodebase
       depends_on:
+        - thecodebase
         - rabbitmq
       environment:
         - CELERY=1
