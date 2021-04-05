@@ -17,12 +17,13 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+CELERY_BROKER_URL = 'amqp://localhost//'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret_key'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ.get('DEBUG', 0)))
@@ -30,28 +31,28 @@ DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 if not DEBUG:
     # Production settings only
     ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
-    # # https://docs.djangoproject.com/en/2.2/ref/middleware/#http-strict-transport-security
-    # SECURE_HSTS_SECONDS = 600
-    # # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_CONTENT_TYPE_NOSNIFF
-    # SECURE_CONTENT_TYPE_NOSNIFF = True
-    # # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_BROWSER_XSS_FILTER
-    # SECURE_BROWSER_XSS_FILTER = True
-    # # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_SSL_REDIRECT
-    # SECURE_SSL_REDIRECT = True
-    # # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SESSION_COOKIE_SECURE
-    # SESSION_COOKIE_SECURE = True
-    # # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-CSRF_COOKIE_SECURE
-    # CSRF_COOKIE_SECURE = True
-    # # https://docs.djangoproject.com/en/2.2/ref/clickjacking/
-    # X_FRAME_OPTIONS = 'DENY'
-    # # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_HSTS_PRELOAD
-    # SECURE_HSTS_PRELOAD = True
-    # # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_HSTS_INCLUDE_SUBDOMAINS
-    # # WARNING: Setting this incorrectly can irreversibly (for the value of SECURE_HSTS_SECONDS) break your site.
-    # SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    # https://docs.djangoproject.com/en/2.2/ref/middleware/#http-strict-transport-security
+    SECURE_HSTS_SECONDS = 600
+    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_CONTENT_TYPE_NOSNIFF
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_BROWSER_XSS_FILTER
+    SECURE_BROWSER_XSS_FILTER = True
+    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_SSL_REDIRECT
+    SECURE_SSL_REDIRECT = True
+    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SESSION_COOKIE_SECURE
+    SESSION_COOKIE_SECURE = True
+    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-CSRF_COOKIE_SECURE
+    CSRF_COOKIE_SECURE = True
+    # https://docs.djangoproject.com/en/2.2/ref/clickjacking/
+    X_FRAME_OPTIONS = 'DENY'
+    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_HSTS_PRELOAD
+    SECURE_HSTS_PRELOAD = True
+    # https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECURE_HSTS_INCLUDE_SUBDOMAINS
+    # WARNING: Setting this incorrectly can irreversibly (for the value of SECURE_HSTS_SECONDS) break your site.
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
-    # # https://docs.djangoproject.com/en/3.0/ref/middleware/#referrer-policy
-    # SECURE_REFERRER_POLICY = 'same-origin'
+    # https://docs.djangoproject.com/en/3.0/ref/middleware/#referrer-policy
+    SECURE_REFERRER_POLICY = 'same-origin'
 
 
 else:

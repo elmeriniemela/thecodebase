@@ -14,9 +14,7 @@ celery_app = Celery('proj')
 # the configuration object to child processes.
 # - namespace='CELERY' means all celery-related configuration keys
 #   should have a `CELERY_` prefix.
-celery_app.conf.update(
-    broker_url='amqp://rabbitmq//'
-)
+celery_app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Load task modules from all registered Django app configs.
 celery_app.autodiscover_tasks()
