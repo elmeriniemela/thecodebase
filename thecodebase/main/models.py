@@ -117,10 +117,12 @@ class Topic(models.Model):
             },
 
             'game-development': {
-                'title': 'Game-Development',
+                'title': 'Game Development',
+                'image_url': 'main/images/game-development.jpg',
                 'sequence': 50,
                 'description':
                     "Developing games is what got me into programming and finally computer science more generally. "
+                    "Simulating the laws of physics is closely related to game engines, which further motivates my interest in game development."
             },
             'python': {
                 'sequence': 60,
@@ -143,11 +145,11 @@ class Topic(models.Model):
             },
 
             'c-c-plus': {
-                'title': 'C/C++',
+                'title': 'C++',
                 'sequence': 90,
-                'description': "I've studied the basics of C/C++. "
-                    "There's alot I'd like to do with C++: for example rewrite some of the games I've made with pygame. "
-                    "What facinates me about C in particular is its closeness to what the actual hardware supports.",
+                'description':
+                    "C++ is one of the best languages for game development, particularly if you need explicit memory management. "
+                    "My experience with C++ comes mainly from Computer Graphics, as I've attended a course where we learned the fundamentals of graphics engines in a C++ framework. "
             },
 
             'javascript': {

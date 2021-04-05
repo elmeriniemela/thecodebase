@@ -1,7 +1,7 @@
 
 import logging
 import re
-import requests
+import base64
 import github
 import markdown
 import celery
@@ -36,28 +36,28 @@ def fetch_repos_task(token):
 
     ghub = github.Github(token)
     for repo in ghub.get_user().get_repos():
-        if not repo.private:
-            try:
-                readme = repo.get_readme()
-            except:
-                continue
+        try:
+            readme = repo.get_readme()
+        except:
+            continue
 
-            _logger.info("Saving repo %s", repo.name)
-            vals = {
-                'name': repo.name,
-                'display_name': prettify(repo.name),
-                'readme_html': markdown.markdown(
-                    requests.get(readme.download_url).text),
-            }
-            repo_record = update_or_create(Repo, vals, name=repo.name)
+        _logger.info("Saving repo %s", repo.name)
+        md_str = base64.b64decode(readme.content).decode()
+        md_str = md_str.replace('\n*', '\n\n*') # List's do not in 'markdown.markdown' work without 2 newlines
+        vals = {
+            'name': repo.name,
+            'display_name': prettify(repo.name),
+            'readme_html': markdown.markdown(md_str),
+        }
+        repo_record = update_or_create(Repo, vals, name=repo.name)
 
-            topics = repo.get_topics()
+        topics = repo.get_topics()
 
-            for topic_name in topics:
-                vals = Topic.default_get(topic_name)
-                topic_record = update_or_create(Topic, vals, url=vals['url'])
-                topic_record.repos.add(repo_record)
-                topic_record.save()
+        for topic_name in topics:
+            vals = Topic.default_get(topic_name)
+            topic_record = update_or_create(Topic, vals, url=vals['url'])
+            topic_record.repos.add(repo_record)
+            topic_record.save()
 
 
 
