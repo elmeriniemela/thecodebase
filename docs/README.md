@@ -6,6 +6,8 @@ Funtionality:
 
 
 Install & Run:
+* https://docs.docker.com/engine/install/ubuntu/
+* https://docs.docker.com/compose/install/
 * `cp thecodebase.env-example thecodebase.env`
 * `docker-compose up --build`
 
@@ -21,7 +23,7 @@ Notes:
 Python PDB:
 * Enable `stdin_open: true` and `tty: true` on docker-compose.yml
 * Add breakpoint `import pdb; pdb.set_trace()`
-* Attach to container `docker attach thecodebase-docker_thecodebase_1`
+* Attach to container `docker attach thecodebase-thecodebase_1`
 * Detach with `Ctrl + P, Ctrl + Q`
 
 ![alt text](https://raw.githubusercontent.com/elmeriniemela/thecodebase/master/docs/thecodebase.png)
