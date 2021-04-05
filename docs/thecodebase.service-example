@@ -1,0 +1,18 @@
+# /etc/systemd/system/thecodebase.service
+
+[Unit]
+Description=The Codebase
+Requires=docker.service
+After=docker.service
+
+[Service]
+WorkingDirectory=/opt/website/thecodebase
+ExecStart=/usr/bin/docker-compose up
+ExecStop=/usr/bin/docker-compose down
+TimeoutStartSec=0
+Restart=on-failure
+StartLimitIntervalSec=60
+StartLimitBurst=3
+
+[Install]
+WantedBy=multi-user.target
