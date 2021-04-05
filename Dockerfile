@@ -10,8 +10,8 @@ RUN pip install -r /tmp/requirements.txt
 RUN useradd $username
 COPY ./thecodebase /thecodebase
 WORKDIR /thecodebase
-RUN mkdir -p /thecodebase/STATIC
-RUN chown -R $username:$username /thecodebase/STATIC
+RUN mkdir -p /thecodebase/build/static
+RUN chown -R $username:$username /thecodebase/build/static
 COPY ./entrypoint.sh /usr/bin/
 USER $username
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
