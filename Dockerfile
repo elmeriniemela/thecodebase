@@ -4,14 +4,17 @@ FROM python:3
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
-ARG username=thecodebase
+ARG USER_ID
+ARG GROUP_ID
+ARG USERNAME
+
+RUN addgroup --gid $GROUP_ID $USERNAME
+RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID $USERNAME
+
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install -r /tmp/requirements.txt
-RUN useradd $username
-COPY ./thecodebase /thecodebase
+VOLUME ["/thecodebase"]
 WORKDIR /thecodebase
-RUN mkdir -p /thecodebase/build/static
-RUN chown -R $username:$username /thecodebase/build/static
 COPY ./entrypoint.sh /usr/bin/
-USER $username
+USER $USERNAME
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
