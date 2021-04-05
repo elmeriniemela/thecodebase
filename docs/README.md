@@ -18,6 +18,7 @@ Setup database:
 
 Service:
 * `# cp docs/thecodebase.service-example /etc/systemd/system/thecodebase.service`
+* `# systemctl enable thecodebase.service --now`
 
 
 Python PDB:
