@@ -1,8 +1,0 @@
-[submodule "thecodebase/main/static/main/js/phaser-games/platform-game"]
-	path = thecodebase/main/static/main/js/phaser-games/platform-game
-	url = https://github.com/elmeriniemela/platform-game.git
-	branch = master
-[submodule "thecodebase/main/static/main/js/phaser-games/eat-game"]
-	path = thecodebase/main/static/main/js/phaser-games/eat-game
-	url = https://github.com/elmeriniemela/eat-game.git
-	branch = master
