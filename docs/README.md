@@ -13,6 +13,7 @@ Install & Run:
 * `$ docker-compose up`
 
 Setup database:
+* `$ createdb thecodebase`
 * `$ docker-compose exec thecodebase python manage.py migrate`
 * `$ docker-compose exec thecodebase python manage.py createsuperuser`
 

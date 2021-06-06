@@ -1,25 +1,15 @@
 version: '3.7'
 
 services:
-    db:
-      image: postgres
-      environment:
-        - POSTGRES_DB=thecodebase
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
-        - POSTGRES_HOST_AUTH_METHOD=trust
-      volumes:
-      - postgres_data:/var/lib/postgresql/data/
     thecodebase:
       build: .
       volumes:
         - ./thecodebase:/thecodebase
-      ports:
-        - 127.0.0.1:8000:8000
-      depends_on:
-        - db
       env_file:
         - thecodebase.env
+      network_mode: "host" # this will expose port 8000 to the codebase service and also expose postgres 5432 to thecodebase
+      # ports:
+      #   - 127.0.0.1:8000:8000
       # pdb debug
       # stdin_open: true
       # tty: true
@@ -38,7 +28,3 @@ services:
         - CELERY=1
       env_file:
         - thecodebase.env
-
-
-volumes:
-  postgres_data:
