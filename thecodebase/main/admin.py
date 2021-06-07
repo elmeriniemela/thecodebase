@@ -5,6 +5,10 @@ import base64
 import github
 import markdown
 import celery
+import signal
+import time
+from contextlib import contextmanager
+
 
 from django.contrib import admin
 from django.http import HttpResponseRedirect
@@ -12,6 +16,25 @@ from django.contrib import messages
 
 from .models import Topic, Repo, GithubToken
 from .models import Game, Score, JavaScriptFile
+
+
+class TimeOutException(Exception):
+   pass
+
+def alarm_handler(signum, frame):
+    raise TimeOutException()
+
+signal.signal(signal.SIGALRM, alarm_handler)
+
+
+@contextmanager
+def timeout(seconds):
+    signal.alarm(seconds)
+    try:
+        yield
+    finally:
+        signal.alarm(0)
+
 
 
 _logger = logging.getLogger(__name__)
@@ -91,14 +114,14 @@ class TopicAdmin(admin.ModelAdmin):
 admin.site.register(Topic, TopicAdmin)
 
 
-
 class GithubTokenAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'sequence')
     actions = ['fetch_repos']
 
     def fetch_repos(self, request, queryset):
         for token_obj in queryset:
-            fetch_repos_task.delay(token_obj.token)
+            with timeout(10):
+                fetch_repos_task.delay(token_obj.token)
 
         messages.add_message(request, messages.INFO, "%s github tokens will be processed asyncronosly" % len(queryset))
 

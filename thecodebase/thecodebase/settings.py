@@ -17,7 +17,8 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-CELERY_BROKER_URL = 'amqp://rabbitmq//'
+# CELERY_BROKER_URL = 'amqp://rabbitmq//' # TODO: This works without network_mode: "host"
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/

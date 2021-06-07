@@ -15,9 +15,11 @@ services:
       # tty: true
 
     rabbitmq:
+      network_mode: "host"
       image: rabbitmq
 
     celery:
+      network_mode: "host"
       build: .
       volumes:
         - ./thecodebase:/thecodebase
